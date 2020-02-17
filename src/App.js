@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Radium, {StyleRoot} from 'radium'
 import './App.css';
 import Person from './Person/Person'
 import NewPost from './Post/NewPost'
@@ -32,9 +32,23 @@ class App extends Component {
     this.setState({persons: persons})
   }
 
+  
   render() {
+    const style={
+      backgroundColor: 'green',
+      color: 'white',
+      fontWeight: 'bold',
+      ':hover': {
+        backgroundColor: 'lightgreen'
+      }
+    }
     let persons = null
     if (this.state.showPersons){
+      style.backgroundColor = 'red'
+      style[':hover'] ={
+        backgroundColor: 'salmon',
+        color: 'black'
+      }
       persons = (<div>
         {this.state.persons.map((person, index) => {
           return <Person change={(event)=> this.changeName(event, person.id)} click={()=> this.deletePersonHandler(index)} key={person.id} name={person.name} age={person.age}/>
@@ -42,19 +56,26 @@ class App extends Component {
         
       </div>)
     }
+
+    const classes = ()=> {
+      return ["red", "bold"].join(' ')
+    }
     return (
+      <StyleRoot>
       <div className="App">
         <h1>Hello demo react</h1>
-        <button onClick={() => { this.clickHandler("Alexey") }}>Switch</button>
+        <button style={style} onClick={() => { this.clickHandler("Alexey") }}>Switch</button>
         {persons}
+        <p className={classes()}>test text</p>
         <NewPost></NewPost>
-      </div>)
+      </div>
+      </StyleRoot>)
 
     //return React.createElement('div',{className: "App"}, React.createElement('h1',null,'Hello demo'))
   }
 }
 
-export default App;
+export default Radium(App);
 
 
  // const App = props => {
