@@ -1,10 +1,23 @@
 import React, { Component } from 'react';
 import Radium, {StyleRoot} from 'radium'
 import './App.css';
+import styled from 'styled-components'
 import Person from './Person/Person'
 import NewPost from './Post/NewPost'
 
+const StyledButton = styled.button`
+    background-color: ${props => props.alt ? 'red': 'green'};
+    color: white;
+    font-weight: bold;
+
+    &:hover {
+      background-color: lightgreen;
+      color: black;
+    }
+    `
+
 class App extends Component {
+  
   state = {
     persons: [{ id: 'qwe1', name: 'zveg', age: 29 }, {id: 'qwe2', name: "jr", age: 3 }],
     showPersons: false
@@ -34,21 +47,18 @@ class App extends Component {
 
   
   render() {
+    
+
     const style={
-      backgroundColor: 'green',
-      color: 'white',
-      fontWeight: 'bold',
-      ':hover': {
-        backgroundColor: 'lightgreen'
-      }
+     
     }
     let persons = null
     if (this.state.showPersons){
-      style.backgroundColor = 'red'
-      style[':hover'] ={
-        backgroundColor: 'salmon',
-        color: 'black'
-      }
+      // style.background = 'red'
+      // style[':hover'] ={
+      //   backgroundColor: 'salmon',
+      //   color: 'black'
+      // }
       persons = (<div>
         {this.state.persons.map((person, index) => {
           return <Person change={(event)=> this.changeName(event, person.id)} click={()=> this.deletePersonHandler(index)} key={person.id} name={person.name} age={person.age}/>
@@ -61,21 +71,21 @@ class App extends Component {
       return ["red", "bold"].join(' ')
     }
     return (
-      <StyleRoot>
+
       <div className="App">
         <h1>Hello demo react</h1>
-        <button style={style} onClick={() => { this.clickHandler("Alexey") }}>Switch</button>
+        <StyledButton alt={this.state.showPersons} onClick={() => { this.clickHandler("Alexey") }}>Switch</StyledButton>
         {persons}
         <p className={classes()}>test text</p>
         <NewPost></NewPost>
       </div>
-      </StyleRoot>)
+)
 
     //return React.createElement('div',{className: "App"}, React.createElement('h1',null,'Hello demo'))
   }
 }
 
-export default Radium(App);
+export default App;
 
 
  // const App = props => {
