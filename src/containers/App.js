@@ -9,7 +9,8 @@ class App extends Component {
   
   state = {
     persons: [{ id: 'qwe1', name: 'zveg', age: 29 }, {id: 'qwe2', name: "jr", age: 3 }],
-    showPersons: false
+    showPersons: false, 
+    showCocpit: true
   }
 
   clickHandler = () => {
@@ -34,7 +35,23 @@ class App extends Component {
     this.setState({persons: persons})
   }
 
+  componentDidMount(){
+    console.log("App conponent did mount")
+  }
+
+  shouldComponentUpdate(nextProps, nextState){
+      console.log("App shouldComponentUpdate")
+      return true
+  }
+
+  componentDidUpdate(){
+    console.log("App.j componentDidUpdate")
+  }
   
+  showCocpitClick = ()=>{
+    this.setState({showCocpit: !this.state.showCocpit})
+  }
+
   render() {
     
 
@@ -56,9 +73,10 @@ class App extends Component {
       return ["red", "bold"].join(' ')
     }
     return (
-
+       
       <div className={cssClasses.App}>
-        <Cocpit click={this.clickHandler}/>
+      <button onClick={()=>{this.showCocpitClick()}}>Show cocpit</button>
+        {this.state.showCocpit?<Cocpit click={this.clickHandler}/>:null}
         {persons}
         <p className={classes()}>test text</p>
         <NewPost></NewPost>
