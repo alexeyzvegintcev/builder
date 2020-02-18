@@ -4,6 +4,7 @@ import Person from '../components/Persons/Person/Person'
 import NewPost from '../components/Post/NewPost'
 import Persons from '../components/Persons/Persons'
 import Cocpit from '../components/Cocpit/Cocpit';
+import withClasses from '../hoc/withClasses'
 
 class App extends Component {
   
@@ -74,7 +75,7 @@ class App extends Component {
     }
     return (
        
-      <div className={cssClasses.App}>
+      <div>
       <button onClick={()=>{this.showCocpitClick()}}>Show cocpit</button>
         {this.state.showCocpit?<Cocpit click={this.clickHandler}/>:null}
         {persons}
@@ -87,7 +88,7 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withClasses(App, cssClasses.App);
 
 
  // const App = props => {

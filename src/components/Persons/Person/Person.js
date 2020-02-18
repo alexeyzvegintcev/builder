@@ -5,7 +5,7 @@ import Aux from '../../../hoc/Aux'
  class Person extends React.Component{
     render(){
         console.log("Person rendering")
-        return (<React.Fragment  className="Person" >
+        return (<React.Fragment >
         <p onClick={this.props.click} >Person name {this.props.name} age: {this.props.age}!</p>
             <p>{this.props.children}</p>
             <input type='text' onChange={this.props.change} value={this.props.name}/>
