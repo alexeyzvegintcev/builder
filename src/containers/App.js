@@ -1,20 +1,9 @@
 import React, { Component } from 'react';
-import Radium, {StyleRoot} from 'radium'
-import './App.css';
-import styled from 'styled-components'
-import Person from './Person/Person'
-import NewPost from './Post/NewPost'
-
-const StyledButton = styled.button`
-    background-color: ${props => props.alt ? 'red': 'green'};
-    color: white;
-    font-weight: bold;
-
-    &:hover {
-      background-color: lightgreen;
-      color: black;
-    }
-    `
+import cssClasses from './App.module.css';
+import Person from '../components/Persons/Person/Person'
+import NewPost from '../components/Post/NewPost'
+import Persons from '../components/Persons/Persons'
+import Cocpit from '../components/Cocpit/Cocpit';
 
 class App extends Component {
   
@@ -23,7 +12,7 @@ class App extends Component {
     showPersons: false
   }
 
-  clickHandler = (name) => {
+  clickHandler = () => {
     const doesShow = this.state.showPersons
     this.setState({ showPersons: !doesShow })
   }
@@ -49,9 +38,6 @@ class App extends Component {
   render() {
     
 
-    const style={
-     
-    }
     let persons = null
     if (this.state.showPersons){
       // style.background = 'red'
@@ -59,11 +45,10 @@ class App extends Component {
       //   backgroundColor: 'salmon',
       //   color: 'black'
       // }
-      persons = (<div>
-        {this.state.persons.map((person, index) => {
-          return <Person change={(event)=> this.changeName(event, person.id)} click={()=> this.deletePersonHandler(index)} key={person.id} name={person.name} age={person.age}/>
-        })}
-        
+      persons = (<div><Persons 
+      persons={this.state.persons} 
+      change={this.changeName} 
+      click={this.deletePersonHandler}/>
       </div>)
     }
 
@@ -72,9 +57,8 @@ class App extends Component {
     }
     return (
 
-      <div className="App">
-        <h1>Hello demo react</h1>
-        <StyledButton alt={this.state.showPersons} onClick={() => { this.clickHandler("Alexey") }}>Switch</StyledButton>
+      <div className={cssClasses.App}>
+        <Cocpit click={this.clickHandler}/>
         {persons}
         <p className={classes()}>test text</p>
         <NewPost></NewPost>
