@@ -1,5 +1,6 @@
 import React from 'react'
 import Person from './Person/Person'
+import PropTypes from 'prop-types'
 
 class Persons extends React.PureComponent {
     static getDerivedStateFromProps(props, state){
@@ -24,5 +25,12 @@ class Persons extends React.PureComponent {
         })
     }
 
+}
+
+Person.propTypes = {
+    click: PropTypes.func,
+    name: PropTypes.string,
+    age: PropTypes.number,
+    change: PropTypes.func
 }
 export default Persons

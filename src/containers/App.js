@@ -5,13 +5,15 @@ import NewPost from '../components/Post/NewPost'
 import Persons from '../components/Persons/Persons'
 import Cocpit from '../components/Cocpit/Cocpit';
 import withClasses from '../hoc/withClasses'
+import AuthContext from '../contexts/AuthContext'
 
 class App extends Component {
   
   state = {
     persons: [{ id: 'qwe1', name: 'zveg', age: 29 }, {id: 'qwe2', name: "jr", age: 3 }],
     showPersons: false, 
-    showCocpit: true
+    showCocpit: true,
+    authed: false
   }
 
   clickHandler = () => {
@@ -50,7 +52,13 @@ class App extends Component {
   }
   
   showCocpitClick = ()=>{
-    this.setState({showCocpit: !this.state.showCocpit})
+    this.setState((prevState, props)=> {return{showCocpit: !prevState.showCocpit}})
+  }
+
+  loginHandler = ()=> {
+    console.log("sdfsdfsdfsdfdsf")
+    this.setState({authed: true})
+    console.log(this.state.authed)
   }
 
   render() {
@@ -74,11 +82,12 @@ class App extends Component {
       return ["red", "bold"].join(' ')
     }
     return (
-       
       <div>
-      <button onClick={()=>{this.showCocpitClick()}}>Show cocpit</button>
+        <AuthContext.Provider value={{authed: this.state.authed, login: this.loginHandler}}>
+        <button onClick={()=>{this.showCocpitClick()}}>Show cocpit</button>
         {this.state.showCocpit?<Cocpit click={this.clickHandler}/>:null}
         {persons}
+        </AuthContext.Provider>
         <p className={classes()}>test text</p>
         <NewPost></NewPost>
       </div>
