@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import cssClasses from './Cocpit.module.css'
 import AuthContext from '../../contexts/AuthContext'
 
 const Cocpit = (props) => {
     const btnRef = React.useRef(null)
+    const context = useContext(AuthContext)
     
     useEffect(() => {
         console.log('cocpit useEffect')
@@ -14,7 +15,7 @@ const Cocpit = (props) => {
         <div>
             <h1>Hello demo react</h1>
             <button ref={btnRef} className={cssClasses.Button} onClick={props.click}>Switch</button>
-            <AuthContext.Consumer>{(context)=>{return <button onClick={context.login}>Login</button>}}</AuthContext.Consumer>
+            <button onClick={context.login}>Login</button>
             
         </div>
     )

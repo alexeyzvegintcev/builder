@@ -4,6 +4,7 @@ import Aux from '../../../hoc/Aux'
 import AuthContext from '../../../contexts/AuthContext'
 
  class Person extends React.Component{
+     static contextType = AuthContext
      constructor(props){
          super(props)
          this.inputElRef = React.createRef()
@@ -15,9 +16,7 @@ import AuthContext from '../../../contexts/AuthContext'
         console.log("Person rendering")
         return (<React.Fragment >
         <p onClick={this.props.click} >Person name {this.props.name} age: {this.props.age}!</p>
-        <AuthContext.Consumer>
-            {(context)=>{return<p>{context.authed ? 'Authed': "Please login"}</p>}}
-        </AuthContext.Consumer>
+            <p>{this.context.authed ? 'Authed': "Please login"}</p>
             <p>{this.props.children}</p>
             <input type='text' 
             //ref={(inputEl)=> {inputEl.focus()}} 
